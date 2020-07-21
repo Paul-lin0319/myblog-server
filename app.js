@@ -1,31 +1,13 @@
-const http = require('http');
-const querystring = require('querystring');
+const serverHandle = (req, res) => {
+  // 设置返回格式 JSON
+  res.setHeader('Content-type', 'application/json');
 
-const server = http.createServer((req, res) => {
-  console.log('method:', req.method);
-  if (req.method === 'GET') {
-    const url = req.url;
-    console.log('url:', url);
-    req.query = querystring.parse(url.split('?')[1]);
-    console.log('query:', req.query);
-    res.end(
-      JSON.stringify(req.query)
-    );
-  } else if (req.method === 'POST') {
-    // 数据格式
-    console.log('req content-type: ', req.headers['content-type']);
-    // 接收数据
-    let postData = '';
-    req.on('data', chunk => {
-      postData += chunk.toString();
-    });
-    req.on('end', () => {
-      console.log('postData: ', postData);
-      res.end('hello world !'); // 在这里返回,因为是异步
-    });
-  }
-});
+  const resData = {
+    name: 'xiaofeng',
+    site: 'imooc',
+  };
 
-server.listen(8000);
+  res.end(JSON.stringify(resData));
+};
 
-console.log('server running');
+module.exports = serverHandle;

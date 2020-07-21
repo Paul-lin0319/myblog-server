@@ -2,7 +2,7 @@
   "name": "myblog-server",
   "version": "1.0.0",
   "description": "个人博客node服务器",
-  "main": "app.js",
+  "main": "bin/www.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -16,5 +16,9 @@
   "bugs": {
     "url": "https://github.com/Paul-lin0319/myblog-server/issues"
   },
-  "homepage": "https://github.com/Paul-lin0319/myblog-server#readme"
+  "homepage": "https://github.com/Paul-lin0319/myblog-server#readme",
+  "devDependencies": {
+    "cross-env": "^7.0.2",
+    "nodemon": "^2.0.4"
+  }
 }

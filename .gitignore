@@ -1,0 +1,8 @@
+#忽略node_modules
+node_modules/
+
+#忽略vscode个人配置
+.vscode/
+
+#忽略package-lock.json
+package-lock.json
