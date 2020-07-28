@@ -22,7 +22,7 @@ if (env === 'production') {
     database: 'myblog',
   };
 }
-console.log(MYSQL_CONF);
+
 module.exports = {
   MYSQL_CONF,
 };
