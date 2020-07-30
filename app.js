@@ -41,11 +41,11 @@ const serverHandle = (req, res) => {
 
   // 处理 post data
   getPostData(req).then((postData) => {
-    req.body = postData;
+    req.body = JSON.parse(postData);
 
     // 处理 blog 路由
     const blogResult = handleBlogRouter(req, res);
-    if (blogData) {
+    if (blogResult) {
       blogResult.then((blogData) => {
         res.end(JSON.stringify(blogData));
       });
