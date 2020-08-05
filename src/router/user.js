@@ -1,4 +1,5 @@
 const { loginCheck } = require('../controller/user');
+const { SuccessModel, ErrorModel } = require('../model/resModel');
 
 const handleUserRouter = (req, res) => {
   const method = req.method; // GET POST
@@ -7,11 +8,13 @@ const handleUserRouter = (req, res) => {
 
   // 登录
   if (method === 'POST' && path === '/api/user/login') {
-    const { username, passwrod } = req.body;
-    const result = loginCheck(username, passwrod);
-    return result
-      ? new SuccessModel('删除登录成功')
-      : new ErrorModel('删除登录失败');
+    const { username, password } = req.body;
+    const result = loginCheck(username, password);
+    return result.then((data) => {
+      return data.username
+        ? new SuccessModel('登录成功')
+        : new ErrorModel('登录失败');
+    });
   }
 };
 

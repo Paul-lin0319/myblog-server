@@ -50,10 +50,13 @@ const handleBlogRouter = (req, res) => {
 
   // 删除一篇博客
   if (method === 'POST' && path === '/api/blog/del') {
-    const result = delBlog(id);
-    return result
-      ? new SuccessModel('删除博客成功')
-      : new ErrorModel('删除博客失败');
+    const author = 'zhangsan'; // 假数据
+    const result = delBlog(id, author);
+    return result.then((val) => {
+      return val
+        ? new SuccessModel('删除博客成功')
+        : new ErrorModel('删除博客失败');
+    });
   }
 };
 
