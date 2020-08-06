@@ -23,7 +23,7 @@ const getPostData = (req) => {
         resolve({});
         return;
       }
-      resolve(postData);
+      resolve(JSON.parse(postData));
     });
   });
 };
@@ -39,9 +39,22 @@ const serverHandle = (req, res) => {
   // 获取 query
   req.qurety = querystring.parse(url.split('?')[1]);
 
+  // 解析cookie
+  req.cookie = {};
+  const cookieStr = req.headers.cookie || ''; // k1=v1:k2=v2
+  cookieStr.split(';').forEach((item) => {
+    if (!item) {
+      return;
+    }
+    const arr = item.split('='),
+      key = arr[0],
+      val = arr[1];
+    req.cookie[key] = val;
+  });
+
   // 处理 post data
   getPostData(req).then((postData) => {
-    req.body = JSON.parse(postData);
+    req.body = postData;
 
     // 处理 blog 路由
     const blogResult = handleBlogRouter(req, res);
