@@ -11,10 +11,26 @@ const handleUserRouter = (req, res) => {
     const { username, password } = req.body;
     const result = login(username, password);
     return result.then((data) => {
-      return data.username
-        ? new SuccessModel('登录成功')
-        : new ErrorModel('登录失败');
+      if (data.username) {
+        // 设置 session
+        req.session.username = data.username;
+        req.session.realname = data.realname;
+        return new SuccessModel('登录成功');
+      }
+      return new ErrorModel('登录失败');
     });
+  }
+
+  // 登录验证的测试
+  if (method === 'GET' && req.path === '/api/user/login-test') {
+    if (req.session.username) {
+      return Promise.resolve(
+        new SuccessModel({
+          session: req.session,
+        })
+      );
+    }
+    return Promise.resolve(new ErrorModel('未登录'));
   }
 };
 
